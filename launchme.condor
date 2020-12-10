@@ -1,0 +1,16 @@
+
+
+Executable = ./launchme.sh
+Universe = vanilla
+Priority = -8888
+Log = condor.log
+output = ./output.txt
+error = ./error.txt
+environment = "PATH=$ENV(PATH):/home/user/bin"
+
+Requirements = TARGET.FileSystemDomain == "hellboyraids" && \
+               TARGET.UidDomain == "cirsims" && \
+               TARGET.HAS_ELDONOISE =?= True
+
+Queue
+

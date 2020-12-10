@@ -1,0 +1,18 @@
+
+# name: supercombo_003
+# 20160108T192001 m1_25u10u_m2_5u20u_m3_20u5u_m4_20u20u   37      13      3.6     2.5     3.00    0.531   0.034   15.49   3.348229e-02    3.210355e-03    2.398181e-03    6.135200e-03    1412538 354813  2.18802e+07     3.38925e+08
+
+.PARAM m2bval=3.6
+.PARAM m3bval=2.5
+.PARAM m4bval=3.0
+.PARAM m1w=25u
+.PARAM m1l=10u
+.PARAM m2w=5u
+.PARAM m2l=20u
+.PARAM m3w=20u
+.PARAM m3l=5u
+.PARAM m4w=20u
+.PARAM m4l=20u
+.PARAM cinval=500f
+.PARAM rfbval=100MEG
+.PARAM m2=5

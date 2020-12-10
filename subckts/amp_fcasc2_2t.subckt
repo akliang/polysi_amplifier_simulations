@@ -1,0 +1,24 @@
+
+.SUBCKT  amp_fcasc2_2t   vcc   gnd   in   m2b   m3b   m4b   m5b  m6b  out n2 n2left
+
+* this one taps at the drain of M5 for out!
+
+M1   n1    n2    gnd   gnd   ntft    W=50u  L=10u
+M2   n4    m2b   gnd   gnd   ntft    W=10u  L=10u
+M3   n1    m3b   n4    vcc   ptft    W=20u  L=10u
+M4   vcc   m4b   n1    vcc   ptft    W=20u  L=10u
+M5   n4    m5b   n3    gnd   ntft    W=10u  L=10u
+M6   n3    m6b   n2left    gnd   ntft    W=10u  L=10u
+
+Vao  n4  out  0
+
+.PARAM VC1=0.1p
+.PARAM VC2=0.5p
+
+C1   n3    gnd   VC1
+C2   in    n2left    VC2
+
+
+.ENDS amp_fcasc2_2t
+
+

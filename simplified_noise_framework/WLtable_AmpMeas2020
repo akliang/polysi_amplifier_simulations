@@ -1,0 +1,4 @@
+###m1w	m1l	m2w	m2l	m3w	m3l	m4w	m4l	m3bval	cinval	rfbval	rdetval	cparval	PITCH	RUNTIME	INKEV	CZTsize	INFILE
+
+50u	10u	10u	10u	20u	10u	20u	10u	4.5	500f	15MEG	100MEG	100f	1000e-6	750u	70	500e-6	three_stage_standard_dp_1bw.cir
+50u	10u	10u	10u	20u	10u	20u	10u	4.5	500f	15MEG	100MEG	100f	1000e-6	750u	70	500e-6	three_stage_standard_dp_1bw_probe12cload.cir

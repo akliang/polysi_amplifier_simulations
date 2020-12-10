@@ -1,0 +1,20 @@
+
+.SUBCKT  diffpairn  vcc    gnd   in1   in2
+*in1=pos
+*in2=neg
+
+*R1    vcc   n1   1MEG
+R1    vcc   n1   411k
+
+M1    n1    in1  out  0  ptft  W=30u  L=6u
+M2    n1    in2  n2   0  ptft  W=30u  L=6u
+
+M3    out   n2   gnd  0  ntft  W=30u  L=6u
+M4    n2    n2   gnd  0  ntft  W=30u  L=6u
+
+
+
+
+.ENDS diffpairn
+
+

@@ -1,0 +1,12 @@
+
+.SUBCKT diffpairnd vcc gnd  in1  in2
+
+.PARAM driver_load=1MEG
+
+Xdiff   vcc  gnd  in1  in2  diffpairn
+R1      vcc  out    driver_load
+M1      out  Xdiff.out gnd  gnd  ntft  W=60u  L=6u
+
+
+.ENDS diffpairnd
+

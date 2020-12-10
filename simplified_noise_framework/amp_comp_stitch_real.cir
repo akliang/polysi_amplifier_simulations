@@ -1,0 +1,66 @@
+
+*#HEADER (just a reminder, not actually used)
+
+*#NUMSTAGES 1
+
+* VCVS
+Eampin  ampinx  0  VCVS  ampin  0  10
+
+* super-combination #1
+.PARAM m2bval=4.3
+.PARAM m3bval=2.5
+.PARAM m4bval=2.25
+.PARAM m1w=25u
+.PARAM m1l=10u
+.PARAM m2w=5u
+.PARAM m2l=10u
+.PARAM m3w=20u
+.PARAM m3l=5u
+.PARAM m4w=20u
+.PARAM m4l=10u
+.PARAM cinval=500f
+.PARAM rfbval=10MEG
+
+*#PRINTNODEAC isweep
+Xdetin   detin   detinDC  0 probe_node   DCval=0
+Xvin     ampin   inDC     ampinL     probe_node  DCval=0
+*#PRINTNODEAC ampinL
+Xst1m2b  st1m2b  st1m2bDC 0 probe_node  DCval=m2bval
+Xst1m3b  st1m3b  st1m3bDC 0 probe_node  DCval=m3bval
+Xst1m4b  st1m4b  st1m4bDC 0 probe_node  DCval=m4bval
+Xst1m5b  st1m5b  st1m5bDC 0 probe_node  DCval=0
+
+Cdet  ampinL   detin  detval
+*Rdet  ampinL   0      100MEG
+Rdet  ampinL   0      10G
+Xst1m1b  Xfcasc1.n2  st1m1bDC  Xfcasc1.n2left  probe_node  DCval=0  *#TFTNOISEGATE Xfcasc1.n2
+*Xfcasc1  vcc  gnd  ampin         st1m2b  st1m3b  st1m4b  st1m5b   amp_fcasc2_gbp  cinval=cinval  rinval=1  rfbval=rfbval  r5val=1
+Xfcasc1  vcc  gnd  ampinx         st1m2b  st1m3b  st1m4b  st1m5b   amp_fcasc2_gbp  cinval=cinval  rinval=1  rfbval=rfbval  r5val=1
++ m1w=m1w  m1l=m1l  m2w=m2w  m2l=m2l  m3w=m3w   m3l=m3l  m4w=m4w  m4l=m4l
+*#PRINTNODEGM Xfcasc1.M1
+*#PRINTNODEGM Xfcasc1.M2
+*#PRINTNODEGM Xfcasc1.M3
+*#PRINTNODEGM Xfcasc1.M4
+
+
+
+
+* comparator stage
+*Rsrc  compin  compinx  1MEG
+.PARAM BIASVAL=8
+.PARAM THRESHVAL=2.1
+
+* input cap and dc
+*Cdp    compinx    compin2  500f
+*Cdp    compin    compin2  500f
+Cdp    Xfcasc1.out    compin2  500f
+Moff   compin2   gnd      mid  ntft   W=6u  L=6u
+Rdiv1  vcc      mid      6MEG
+Rdiv2  mid      gnd      2MEG
+
+Xcomp  vcc gnd  vcc  gnd  compin2  schmitt_diffpair
+
+
+Vout  Xcomp.out  out  0
+
+

@@ -1,0 +1,96 @@
+
+
+****** HEADER ******
+.option INFODEV=$DEVFILE
+.option NOWARN=252  * warning about self-connected objects
+.option NOWARN=706  * warning about superceded param values in subckt
+
+.INCLUDE modelcards.mc
+
+Vvcc  vcc 0  8
+Vgnd  gnd 0  0
+
+.AC  DEC 150  0.1  10MEG
+$SKIPSTEP .STEP PARAM m4bval  0    7  0.25
+$SKIPSTEP .STEP PARAM m2bval  0    4  0.1
+*$SKIPSTEP .STEP PARAM m4bval  2    7  1
+*$SKIPSTEP .STEP PARAM m2bval  0.5  4  0.5
+****** HEADER ******
+
+
+*#INODE st1in
+*#NUMSTAGES 1
+
+
+*$PBLOCK
+
+
+Xvin  st1in   inDC 0  probe_node  DCval=2  *#TFTNOISEGATE ampin  Xfcasc1.n2left
+*#PRINTNODEAC Xfcasc1.n2
+Xm2b  st1m2b  st1m2bDC 0 probe_node  DCval=m2bval
+Xm3b  st1m3b  st1m3bDC 0 probe_node  DCval=0.75
+Xm4b  st1m4b  st1m4bDC 0 probe_node  DCval=m4bval
+Xm5b  st1m5b  st1m5bDC 0 probe_node  DCval=0
+Xm6b  st1m6b  st1m6bDC 0 probe_node  DCval=0
+
+Cdet  st1in   ampin  $DETCAP
+Rdet  ampin   0      100G
+Xm1b  Xfcasc1.n2left  st1m1bDC Xfcasc1.n2  probe_node  DCval=0  *#TFTNOISEGATE Xfcasc1.n2  Xfcasc1.n2left
+Xfcasc1  vcc  gnd  ampin          st1m2b  st1m3b  st1m4b  st1m5b  st1m6b  amp_fcasc2_2t
+*#PRINTNODEAC ampin
+
+*Vout  Xfcasc1.out  out  0
+
+
+* Diff pair input load
+Cdp   Xfcasc1.out  out  500f
+*Rdiv1  out  gnd  100MEG
+Moff  out   gnd    mid  ntft   W=6u  L=6u
+Rdiv1 vcc          mid  6MEG
+Rdiv2 mid          gnd  2MEG
+
+
+
+.PRINTFILE AC
++ im(Vvcc)
++ im(Vgnd)
++ vr(out)
++ vi(out)
+*$PRINTFILENODES
+*+ vr(Xfcasc1.in)
+*+ vi(Xfcasc1.in)
+*+ vr(Xfcasc1.N2)
+*+ vi(Xfcasc1.N2)
+*+ vr(Xfcasc1.M2B)
+*+ vi(Xfcasc1.M2B)
+*+ vr(Xfcasc1.M3B)
+*+ vi(Xfcasc1.M3B)
+*+ vr(Xfcasc1.M4B)
+*+ vi(Xfcasc1.M4B)
+*+ vr(Xfcasc1.M5B)
+*+ vi(Xfcasc1.M5B)
+*+ gm(Xfcasc1.M1)
+*+ gm(Xfcasc1.M2)
+*+ gm(Xfcasc1.M3)
+*+ gm(Xfcasc1.M4)
+*+ gm(Xfcasc1.M5)
+*+ vr(st1in)
+*+ vi(st1in)
+*+ vr(st1m2b)
+*+ vi(st1m2b)
+*+ vr(st1m3b)
+*+ vi(st1m3b)
+*+ vr(st1m4b)
+*+ vi(st1m4b)
+*+ vr(st1m5b)
+*+ vi(st1m5b)
+*+ vm(m2bDC)
+*+ vm(m3bDC)
+*+ vm(m4bDC)
+*+ vm(m5bDC)
+*+ vr(Xfcasc1.out)
+*+ vi(Xfcasc1.out)
++ FILE="${DATFILE}"
+ 
+
+

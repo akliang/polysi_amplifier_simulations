@@ -1,0 +1,21 @@
+K 10
+svn:ignore
+V 124
+tmp
+*.tmp
+*.swp
+*.dat
+*.meta
+*.bin
+*.chi
+*.errm*
+*.log
+simfile*
+octave-core
+simruns
+modelcards
+findjumps.m
+subckts_working
+
+
+END

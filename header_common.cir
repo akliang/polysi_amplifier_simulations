@@ -1,0 +1,89 @@
+
+.INCLUDE modelcards.mc
+
+****** HEADER ******
+*.option NOWARN=252  * warning about self-connected objects
+*.option NOWARN=706  * warning about superceded param values in subckt
+.option AMMETER
+*.OPTION GEAR
+*.option TUNING=VHIGH
+.option EPS=1e-9
+.option UNBOUND
+.option LVLTIM=2
+.OPTION POST=2 PROBE
+.option post_double
+.option NUMDGT=18
+.option INFODEV="info.dev"
+
+
+* input cap
+*.PARAM detval=$DETCAP
+.PARAM coulomb=6.24e18
+.PARAM e0=8.854e-12
+.PARAM ecap=11
+.PARAM detL=1000u
+.PARAM detW=1000u
+.PARAM detT=500u
+.PARAM detval=(e0*ecap*detL*detW/detT)
+
+
+* input signal
+* (2015-12-01 obsolete now because of MK input pulse train?)
+.PARAM kev=70
+.PARAM weff=4.6
+.PARAM injelectrons=(kev*1000/weff)
+*.PARAM pdelay=1u
+*.PARAM prise=20n
+.PARAM plen=100n
+*.PARAM pwait=120u
+.PARAM pwait=100u
+*.PARAM DClow=0
+.PARAM DChigh=(injelectrons * 1.6e-19 / plen )
+*Iin  ampin  detin  PWL(
+*+ 0              DClow
+*+ pdelay         DClow
+*+ (pdelay+prise) (2*DChigh)
+*+ (pdelay+plen)  DClow
+*+ pwait          DClow
+*+ R )
+
+Iin     ampinL  detin   PWL(FILE="1ms0events.pwl" col=1)
+Vinref  inref  0       PWL(FILE="1ms0events.pwl" col=2)
+Rinref  inref  0       1k
+
+* dummy component to force accuracy
+Iin2 ampin2  0  PWL(FILE="1ms0events.pwl" col=1 SCALE=1000)
+Cxx  ampin2  0  100f
+Rxx  ampin2  0  100MEG
+
+
+* common power supplies
+* note: eldo will take the last declared param value if there are duplicated params
+* (i.e., the param values declared in the imported circuit will be what is used)
+* also, sed will replace EVERY instance line it finds, so it will update all param vals
+.PARAM m2bval=1.3
+.PARAM m3bval=0.25
+.PARAM m4bval=3.75
+.PARAM m5bval=0
+Vvcc  vcc 0  8
+Vgnd  gnd 0  0
+* detin not needed because its connected using probe_node in the imported circuits
+*Vdetin  detin  0  0
+Vm2b  m2b  0  m2bval
+Vm3b  m3b  0  m3bval
+Vm4b  m4b  0  m4bval
+Vm5b  m5b  0  m5bval
+
+
+** input detector
+*Cdet  ampin   detin  detval
+**Rdet  ampin   0      100MEG
+*Rdet  ampin   0      10G
+
+
+
+.PARAM tstep=100n
+.PARAM runtime=1m
+.TRAN tstep  runtime
+
+

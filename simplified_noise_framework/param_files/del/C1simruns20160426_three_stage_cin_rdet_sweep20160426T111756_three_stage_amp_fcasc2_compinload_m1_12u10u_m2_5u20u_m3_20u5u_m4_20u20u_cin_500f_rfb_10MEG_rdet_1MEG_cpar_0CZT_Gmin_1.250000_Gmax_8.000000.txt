@@ -1,0 +1,27 @@
+.PARAM m1w=12u
+
+.PARAM m1l=10u
+
+.PARAM m2w=5u
+
+.PARAM m2l=20u
+
+.PARAM m3w=20u
+
+.PARAM m3l=5u
+
+.PARAM m4w=20u
+
+.PARAM m4l=20u
+
+.PARAM cinval=500f
+
+.PARAM rdetval=1MEG
+
+.PARAM rfbval=10MEG
+
+.PARAM cparval=0
+
+.PARAM m2bval=5.900000
+.PARAM m3bval=2.500000
+.PARAM m4bval=2.250000

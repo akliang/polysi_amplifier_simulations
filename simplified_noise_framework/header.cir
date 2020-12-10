@@ -1,0 +1,63 @@
+
+*.OPTION GEAR
+
+****** HEADER ******
+.option INFODEV=$DEVFILE
+.option NOWARN=252  * warning about self-connected objects
+.option NOWARN=706  * warning about superceded param values in subckt
+.option AMMETER
+
+*$RUNTRAN .MPRUN ALL
+
+.INCLUDE modelcards.mc
+
+Vvcc  vcc 0  8
+Vgnd  gnd 0  0
+
+*$RUNTRAN  .TRAN 100n  50u
+*$RUNTRAN  .TRAN 100n  750u
+$RUNTRAN  .TRAN 100n  $RUNTIME
+$RUNAC    .AC  DEC 20  0.1  1G
+$SKIPSTEP .STEP PARAM m4bval  0    8  0.25
+$SKIPSTEP .STEP PARAM m2bval  0    6  0.1
+*$SKIPSTEP .STEP PARAM m2bval  (-2)    6  0.1
+*$SKIPSTEP .STEP PARAM m4bval  2    7  1
+*$SKIPSTEP .STEP PARAM m2bval  0.5  4  0.5
+****** HEADER ******
+
+.PARAM detval=$DETCAP
+
+*$PBLOCK
+*$CUSTOMSRC
+
+
+********** FOOTER ********
+.PRINTFILE AC FILE="${DATFILE}"
++ im(Vvcc)
++ im(Vgnd)
++ im(Iin)
++ vm(out)
++ vp(out)
+*$PRINTFILENODES
+
+
+.PRINTFILE TRAN FILE="${DATFILE}.TRAN"
++ i(Vvcc)
++ i(Vgnd)
++ i(Iin)
++ v(out)
+*$PRINTFILENODESTRAN
+* extra nodes for determining DC operating point
++ v(Xfcasc1.n1)
++ v(Xfcasc1.n4)
++ v(Xfcasc2.n1)
++ v(Xfcasc2.n4)
++ v(Xfcasc3.n1)
++ v(Xfcasc3.n4)
++ v(Xfcasc1.out)
++ v(Xfcasc2.out)
++ v(Xfcasc3.out)
+********** FOOTER ********
+
+
+

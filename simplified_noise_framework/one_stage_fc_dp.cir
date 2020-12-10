@@ -1,0 +1,70 @@
+
+
+****** HEADER ******
+.option INFODEV=$DEVFILE
+.option NOWARN=252  * warning about self-connected objects
+.option NOWARN=706  * warning about superceded param values in subckt
+.option AMMETER
+
+
+.INCLUDE modelcards.mc
+
+Vvcc  vcc 0  8
+Vgnd  gnd 0  0
+
+$RUNTRAN  .TRAN 100n  120u
+$RUNAC    .AC  DEC 20  0.1  10MEG
+$SKIPSTEP .STEP PARAM m4bval  0    7  0.25
+$SKIPSTEP .STEP PARAM m2bval  0    4  0.1
+*$SKIPSTEP .STEP PARAM m4bval  2    7  1
+*$SKIPSTEP .STEP PARAM m2bval  0.5  4  0.5
+****** HEADER ******
+
+
+*#INODE st1in
+*#NUMSTAGES 1
+
+
+*$PBLOCK
+
+*#PRINTNODEAC isweep
+*$CUSTOMSRC
+*Xvin  st1in   inDC     0     probe_node  DCval=0  *#TFTNOISEGATE ampin  Xfcasc1.n2left
+Xvin  ampin   inDC    ampinL     probe_node  DCval=0  *#TFTNOISEGATE ampin  Xfcasc1.n2left
+*#PRINTNODEAC Xfcasc1.n2
+Xm2b  st1m2b  st1m2bDC 0 probe_node  DCval=m2bval
+Xm3b  st1m3b  st1m3bDC 0 probe_node  DCval=0.75
+Xm4b  st1m4b  st1m4bDC 0 probe_node  DCval=m4bval
+Xm5b  st1m5b  st1m5bDC 0 probe_node  DCval=0
+
+Cdet  ampinL   0      $DETCAP
+Rdet  ampinL   0      100MEG
+Xm1b  Xfcasc1.n2  st1m1bDC Xfcasc1.n2left   probe_node  DCval=0  *#TFTNOISEGATE Xfcasc1.n2  Xfcasc1.n2left
+Xfcasc1  vcc  gnd  ampin          st1m2b  st1m3b  st1m4b  st1m5b   amp_fcasc2_fc
+*#PRINTNODEAC ampin  ampinL
+
+
+* Diff pair input load
+Cdp   Xfcasc1.out  out  500f
+Moff  out   gnd    mid  ntft   W=6u  L=6u
+Rdiv1 vcc          mid  6MEG
+Rdiv2 mid          gnd  2MEG
+*Vout  Xfcasc1.out  out  0
+
+.PRINTFILE AC
++ im(Vvcc)
++ im(Vgnd)
++ vr(out)
++ vi(out)
+*$PRINTFILENODES
++ FILE="${DATFILE}"
+ 
+
+.PRINTFILE TRAN
++ i(Vvcc)
++ i(Vgnd)
++ i(Iin)
++ v(out)
+*$PRINTFILENODESTRAN
++ FILE="${DATFILE}.TRAN"
+

@@ -1,0 +1,29 @@
+
+*#HEADER (just a reminder, not actually used)
+
+*#NUMSTAGES 1
+
+Vvcca  vcca  0  8
+Vgnda  gnda  0  0
+Vvccd  vccd  0  8
+Vgndd  gndd  0  0
+Vdetin detin 0  0
+Eamp  compin  0  VCVS  ampin  0  -5
+Rsrc  compin  compinx  1MEG
+.PARAM BIASVAL=5
+.PARAM THRESHVAL=2.3
+
+* input cap and dc
+Cdp    compinx    compin2  500f
+Moff   compin2   gnd      mid  ntft   W=6u  L=6u
+Rdiv1  vcca      mid      6MEG
+Rdiv2  mid      gnda      2MEG
+
+Xcomp  vcca gnda  vccd  gndd  compin2  schmitt_diffpair
+
+
+Vout  Xcomp.out  out  0
+
+
+
+

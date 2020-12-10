@@ -1,0 +1,40 @@
+###m1w	m1l	m2w	m2l	m3w	m3l	m4w	m4l	m3bval	cinval	rfbval	rdetval	cparval	PITCH	RUNTIME	INKEV	INFILE
+
+### new (500 um pitch)
+#50u	5u	10u	10u	20u	10u	20u	10u	0.0	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	0.5	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	1.0	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	1.5	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	2.0	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	2.5	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	3.0	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	3.5	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	4.0	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	4.5	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	5.0	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	5.5	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	6.0	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	6.5	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	7.0	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	7.5	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+#50u	5u	10u	10u	20u	10u	20u	10u	8.0	500f	15MEG	10MEG	100f	500e-6	50u	68	three_stage_amp_fcasc2_compinload.cir
+
+### new (330 um pitch)
+50u	5u	10u	10u	20u	10u	20u	10u	0.0	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	0.5	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	1.0	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	1.5	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	2.0	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	2.5	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	3.0	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	3.5	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	4.0	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	4.5	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	5.0	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	5.5	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	6.0	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	6.5	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	7.0	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	7.5	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+50u	5u	10u	10u	20u	10u	20u	10u	8.0	500f	15MEG	10MEG	100f	300e-6	50u	30	three_stage_amp_fcasc2_compinload.cir
+

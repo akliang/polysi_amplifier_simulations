@@ -1,0 +1,13 @@
+
+.SUBCKT probe_node ACnode DCnode  GNDnode
+
+.PARAM DCval=0
+.PARAM ACval=0
+
+Vac  ACnode  GNDnode  DC  DCval  AC  ACval
+
+Vdc  DCnode  0  DC DCval AC DCval
+Cdc  DCnode  0  1aF
+
+
+.ENDS probe_node

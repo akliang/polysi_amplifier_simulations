@@ -1,0 +1,69 @@
+
+# Notes for how to use this simulation framework after PMB2019 paper was submitted
+
+--- Overall structure and workflow:
+
+The main script that returns the count rates is "run_sim.sh"
+
+"run_sim.sh" requires a few inputs:
+- it requires a "param file" from simplified_noise_framework
+- it requires an input pulse train folder
+
+After the simulations are run, you run "plot_counts.m" to generate the results
+
+- the command to run (in octave): fgroup='path-to-folder-name'; plot_counts
+- there is a special flag called "dofwhm" that will calculate the full-width half-max of the energy response profile (for monoenergetic simulation inputs)
+- to use "dofwhm", run this command (in octave): fgroup='path-to-folder-name'; dofwhm=true; plot_counts
+- note: if this is the first time "plot_counts" is run, it will run a joindat function that can take a while (but subsequent re-runs of "plot_counts" will be very fast)
+
+To generate paper data, you need to update "make_plots_for_pmb2019.m"
+
+- point to the paths of the "run_sim.sh" results
+- point to the paths of the simplified_noise_framework
+- specify which r(ow) and c(olumn) values to use (corresponding to m2b/VAGC and m4b/VB, respectively)
+- update which path to "cp" to
+- the figures will be generated in "paper_figures" folder (it will overwrite whatever is previously there)
+
+--- How-to: simplified_noise_framework to generate a "param" file
+
+- most likely, you will want to use a WLtable
+- you can start with "WLtable_PMB2019" which has all the latest features and flags included
+- one of the WLtable parameters is the keV energy (see How-to for "genpulses2")
+- after you set your criteria, you run "./sweepWL.sh WLtable_PMB2019"
+- essentially, this launches "amp.sh" and sets all the parameters from a row of WLtable
+
+After the simulations are done, you need to loop through all the directories and run "compute_noise.m"
+
+- the command to run (in bash):
+
+> for F in $( ls -1d C6simruns/some-common-run-key*/CZT ); do echo "compute_noise('$F')" | octave -qH; done
+
+- note: "compute_noise.m" can take a while to run (approximately 5 minutes per directory) and it crashes frequently
+
+- results will go into two places: an "adat.txt" file and also generate param files in the "param_files" folder
+- find the best optimal condition to use from the "adat.txt" file, and then identify those conditions in the "param_files" folder
+- that is the param file to input to the "make_plots_for_pmb2019.m" file
+
+
+--- How-to: generate an input pulse train with "genpulses2.m"
+
+- first, you need to define the spectrum (kVp? HVL? any phantom or object filtration? absorbed energy distribution through CZT?)
+- use excel to add up the probabilities until you find the 50% point, which is the mean x-ray energy for that spectrum
+- edit the "genpulses2.m" file to point to this spectrum file
+- make a directory structure to hold the input pulse train (n1000x10 means 10 files each with 1000 pulses)
+
+example:
+
+- inpulse_20190822_sample_pulse_train_n1000x10
+ \_ inpulses_001
+ \_ inpulses_002
+ \_ inpulses_003
+
+- cd to the top folder ("inpulses_20190822...") and run this command (in bash):
+
+> for F in $( ls -1d inpulses_* ); do cd $F; echo "addpath('../../');genpulses2" | octave -qH; cd -; done
+
+- this goes into each inpulses_0* folder and creates a set of input pulse trains
+- note: if you want to adjust which count rates are generated, modify "genpulses2.m" accordingly
+- note: it's not recommended to go higher than 1000 pulses per file (the "run_sim.sh" becomes very slow)
+

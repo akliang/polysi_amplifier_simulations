@@ -1,0 +1,84 @@
+
+*#HEADER (just a reminder, not actually used)
+
+*#NUMSTAGES 1
+
+* super-combination #1
+*.PARAM m2bval=2.8
+*.PARAM m3bval=2.5
+*.PARAM m4bval=2.25
+*.PARAM m1w=12u
+*.PARAM m1l=10u
+*.PARAM m2w=5u
+*.PARAM m2l=20u
+*.PARAM m3w=20u
+*.PARAM m3l=5u
+*.PARAM m4w=20u
+*.PARAM m4l=20u
+*.PARAM cinval=500f
+*.PARAM rfbval=10MEG
+*.PARAM rdetval=10MEG
+*.PARAM cparval=100f
+
+* SPC1 transistor sizes, but with the new Rfb feedback loop
+.PARAM m2bval=2.8
+*.PARAM m3bval=0.25
+.PARAM m3bval=2.50
+.PARAM m4bval=2.25
+.PARAM m1w=50u
+.PARAM m1l=5u
+.PARAM m2w=10u
+.PARAM m2l=10u
+.PARAM m3w=20u
+.PARAM m3l=10u
+.PARAM m4w=20u
+.PARAM m4l=10u
+.PARAM cinval=500f
+.PARAM rfbval=10MEG
+.PARAM rdetval=10MEG
+.PARAM cparval=100f
+
+*#PRINTNODEAC isweep
+Xdetin   detin   detinDC  0 probe_node   DCval=0
+Xvin     ampin   inDC     ampinL     probe_node  DCval=0
+*#PRINTNODEAC ampinL
+Xst1m2b  st1m2b  st1m2bDC 0 probe_node  DCval=m2bval
+Xst1m3b  st1m3b  st1m3bDC 0 probe_node  DCval=m3bval
+Xst1m4b  st1m4b  st1m4bDC 0 probe_node  DCval=m4bval
+Xst1m5b  st1m5b  st1m5bDC 0 probe_node  DCval=0
+Xst2m2b  st2m2b  st2m2bDC 0 probe_node  DCval=m2bval
+Xst2m3b  st2m3b  st2m3bDC 0 probe_node  DCval=m3bval
+Xst2m4b  st2m4b  st2m4bDC 0 probe_node  DCval=m4bval
+Xst2m5b  st2m5b  st2m5bDC 0 probe_node  DCval=0
+
+Cdet  ampinL   detin  detval
+Cpar  ampinL   0      cparval
+Rdet  ampinL   0      rdetval
+*Rdet  ampinL   0      100MEG
+Xst1m1b  Xfcasc1n2  st1m1bDC  Xfcasc1n2left  probe_node  DCval=0  *#TFTNOISEGATE Xfcasc1.n2
+Xst2m1b  Xfcasc2n2  st2m1bDC  Xfcasc2n2left  probe_node  DCval=0  *#TFTNOISEGATE Xfcasc2.n2
+*Xfcasc1  vcc  gnd  ampin         st1m2b  st1m3b  st1m4b  st1m5b   amp_fcasc2_gbp  cinval=1mF  rinval=1MEG  rfbval=100G  r5val=1
+Xfcasc1  vcc  gnd  ampin               st1m2b  st1m3b  st1m4b  st1m5b   Xfcasc1out  Xfcasc1n2  Xfcasc1n2left  amp_fcasc2_gbp  cinval=cinval  rinval=1  rfbval=rfbval  r5val=1
++ m1w=m1w  m1l=m1l  m2w=m2w  m2l=m2l  m3w=m3w   m3l=m3l  m4w=m4w  m4l=m4l
+Xfcasc2  vcc  gnd  Xfcasc1out         st2m2b  st2m3b  st2m4b  st2m5b    Xfcasc2out  Xfcasc2n2  Xfcasc2n2left  amp_fcasc2_gbp  cinval=cinval  rinval=1  rfbval=rfbval  r5val=1
++ m1w=m1w  m1l=m1l  m2w=m2w  m2l=m2l  m3w=m3w   m3l=m3l  m4w=m4w  m4l=m4l
+*#PRINTNODEGM Xfcasc1.M1
+*#PRINTNODEGM Xfcasc1.M2
+*#PRINTNODEGM Xfcasc1.M3
+*#PRINTNODEGM Xfcasc1.M4
+*#PRINTNODEGM Xfcasc2.M1
+*#PRINTNODEGM Xfcasc2.M2
+*#PRINTNODEGM Xfcasc2.M3
+*#PRINTNODEGM Xfcasc2.M4
+
+
+
+* Diff pair input load
+Cdp   Xfcasc2out  out  500f
+Moff  out   gnd    mid  ntft   W=6u  L=6u
+Rdiv1 vcc          mid  6MEG
+Rdiv2 mid          gnd  2MEG
+Mdiff gnd   out    gnd  ntft  W=6u  L=6u
+*Vout  out  Xfcasc3out  0
+
+

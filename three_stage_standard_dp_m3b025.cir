@@ -1,0 +1,107 @@
+
+.INCLUDE modelcards.mc
+*.INCLUDE amp_fcasc2_cutoff.subckt
+*.INCLUDE amp_fcasc2_fc.subckt
+
+****** HEADER ******
+*.option NOWARN=252  * warning about self-connected objects
+*.option NOWARN=706  * warning about superceded param values in subckt
+.option AMMETER
+*.OPTION GEAR
+*.option TUNING=VHIGH
+.option EPS=1e-9
+.option UNBOUND
+.option LVLTIM=2
+.OPTION POST=2 PROBE
+.option post_double
+.option NUMDGT=18
+
+
+* input cap
+*.PARAM detval=$DETCAP
+.PARAM coulomb=6.24e18
+.PARAM e0=8.854e-12
+.PARAM ecap=11
+.PARAM detL=1000u
+.PARAM detW=1000u
+.PARAM detT=500u
+.PARAM detval=(e0*ecap*detL*detW/detT)
+
+
+* input signal
+.PARAM kev=70
+.PARAM weff=4.6
+.PARAM injelectrons=(kev*1000/weff)
+*.PARAM pdelay=1u
+*.PARAM prise=20n
+.PARAM plen=100n
+*.PARAM pwait=120u
+.PARAM pwait=100u
+*.PARAM DClow=0
+.PARAM DChigh=(injelectrons * 1.6e-19 / plen )
+*Iin  ampin  detin  PWL(
+*+ 0              DClow
+*+ pdelay         DClow
+*+ (pdelay+prise) (2*DChigh)
+*+ (pdelay+plen)  DClow
+*+ pwait          DClow
+*+ R )
+
+Iin  ampin  detin  PWL(FILE="1ms0events.pwl")
+
+* dummy component to force accuracy
+Iin2 ampin2  0  PWL(FILE="1ms0events.pwl" SCALE=1000)
+Cxx  ampin2  0  100f
+Rxx  ampin2  0  100MEG
+
+
+
+Vvcc  vcc 0  8
+Vgnd  gnd 0  0
+Vdetin  detin  0  0
+*Vm2b  m2b  0  1.3
+Vm2b  m2b  0  3.9
+*Vm2b  m2b  0  5.30
+Vm3b  m3b  0  0.25
+*Vm4b  m4b  0  3.75
+Vm4b  m4b  0  1.75
+*Vm4b  m4b  0  1.00
+Vm5b  m5b  0  0
+
+Cdet  ampin   detin  detval
+Rdet  ampin   0      100MEG
+Xfcasc1  vcc  gnd  ampin         m2b  m3b  m4b  m5b   amp_fcasc2_fc
+Xfcasc2  vcc  gnd  Xfcasc1.out   m2b  m3b  m4b  m5b   amp_fcasc2_cutoff
+Xfcasc3  vcc  gnd  Xfcasc2.out   m2b  m3b  m4b  m5b   amp_fcasc2_fc
+* n2 and n2left are disconnected because probe_node used to be in them (an artifact leftover from copying the cir file from jmi2015/amplifier)
+R1n2  Xfcasc1.n2  Xfcasc1.n2left  1
+R2n2  Xfcasc2.n2  Xfcasc2.n2left  1
+R3n2  Xfcasc3.n2  Xfcasc3.n2left  1
+
+
+* Diff pair input load
+Cdp   Xfcasc3.out  out  500f
+Moff  out   gnd    mid  ntft   W=6u  L=6u
+Rdiv1 vcc          mid  6MEG
+Rdiv2 mid          gnd  2MEG
+*Vout  out  Xfcasc3.out  0
+
+
+.PARAM tstep=10n
+*.PARAM runtime=(9*pwait)
+.PARAM runtime=1m
+.TRAN tstep  runtime
+
+
+.PRINTFILE TRAN FILE="amp.dat"
++ v(m2b)
++ v(m3b)
++ v(m4b)
++ v(m5b)
++ i(Iin)
++ v(ampin)
++ v(Xfcasc1.out)
++ v(Xfcasc2.out)
++ v(Xfcasc3.out)
+
+

@@ -1,0 +1,25 @@
+
+# name: supercombo_006
+# C1simruns/20160210_simplifiedthermaleq/20160210T191737_one_stage_amp_fcasc2_compinload_m1_12u10u_m2_5u20u_m3_20u5u_m4_20u20u_cin_500f_rfb_10MEG/CZT
+# r       c       m2b     m3b     m4b     Amat    Nmat    SNR     m1noise         m2noise         m3noise         m4noise         BWhi    BWlo    tmax            tbase005        lin10k
+# 55      9       5.4     2.5     2.00    0.252   0.010   24.92   9.781002e-03    1.578452e-03    1.208286e-03    1.602596e-03    7079458 2511886 1.093985e-06    1.298501e-06    0.96
+# note: pitch is 250um!!
+
+# temp settings for spie2016 proceeding
+# bias settings for fastest 5% return to baseline
+# r c=[59 6]
+
+.PARAM m2bval=5.8
+.PARAM m3bval=2.5
+.PARAM m4bval=1.25
+.PARAM m1w=12u
+.PARAM m1l=10u
+.PARAM m2w=5u
+.PARAM m2l=20u
+.PARAM m3w=20u
+.PARAM m3l=5u
+.PARAM m4w=20u
+.PARAM m4l=20u
+.PARAM cinval=500f
+.PARAM rfbval=10MEG
+

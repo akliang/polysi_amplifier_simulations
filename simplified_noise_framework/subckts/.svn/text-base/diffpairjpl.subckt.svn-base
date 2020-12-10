@@ -1,0 +1,22 @@
+
+.SUBCKT diffpairjpl  vcca  gnda  in
+
+*Vbias    bias    0  2
+*Vthresh  thresh  0  2
+Vbias bias 0 biasval
+Vthresh thresh 0 threshval
+
+R1  vcca  n1  469k
+R2  vcca  n2  469k
+
+M1  n1   in      n3     gnda  ntft  W=6u  L=6u
+M2  n2   thresh  n3     gnda  ntft  W=6u  L=6u
+M3  n3   bias    nr100k gnda  ntft  W=30u  L=6u
+R100k    nr100k  gnda   137k
+
+
+Vout1  n1  out1  0
+Vout2  n2  out2  0
+
+.ENDS diffpairjpl
+

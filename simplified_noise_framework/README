@@ -1,0 +1,25 @@
+This folder sources octave_scripts from the spc_testbenches/stitched2 folder
+
+How to use this framework:
+This framework simulates an input circuit and generates a Bode plot for every transistor in the circuit.  (Note, to do this, you have to add a probe_node subcircuit to the gate of every transistor).
+After it calculates the bode plot, it generates a 1/f curve using a specified input kfn or kfp value, then convolves the 1/f curve with the bode plot, and integrates to give you a Vrms noise for that transistor
+It saves the Vrms for each transistor in a file, which is used in analysis (compute_noise.m) to calculate a total intrinsic noise by geometrically adding them
+It will also run a TRAN simulation for a given input node (that you have to define as well)
+
+
+1. The simulation settings are stored in header.cir and amp.sh
+2. To launch a simulation, execute: ./amp.sh three_stage_dp_m3b100.cir OPTIONALKEYWORD
+3. The simulation will run and put the data into ./simruns
+4. To analyze, launch octave and execute: compute_noise('./simruns/SIMFOLDER/CZT')
+
+Other notable features:
+
+- amp.sh creates a temp file named amp_template.sh --> I don't think multiple instances of amp.sh can run at the same time! (2015-12-10 I don't think it does this anymore...)
+-- I recommend using a for loop to step through the cir files you'd like to simulate, and let it run sequentially
+- after eldo runs, it launched analyze_amp3.m
+- to change the "golden/standard" model card used... i recommend changing it in both amp.sh and modelcards.mc
+-- I don't think modelcards.mc is used, but that hasn't been confirmed yet
+- to change the kfn or kfp values, edit that in amp.sh
+- if you want to change the eldo precision, you have to change it in TWO places in amp.sh (once for isweep and once for tran)
+
+

@@ -1,0 +1,28 @@
+#./C1simruns/20160610_paperdata/20160608T144910_three_stage_amp_fcasc2_compinload_m1_12u10u_m2_5u20u_m3_20u5u_m4_20u20u_cin_500f_rfb_10MEG_rdet_100MEG_cpar_100f/CZT/	46	16	4.5	2.5	3.75	1.254	0.036	34.67	2.306943e-02	1.962739e-02	5.737946e-03	2.445440e-02	3981072	707946	1.213268e-06	7.123767e-06	0.89364	0.89364
+.PARAM m1w=12u
+
+.PARAM m1l=10u
+
+.PARAM m2w=5u
+
+.PARAM m2l=20u
+
+.PARAM m3w=20u
+
+.PARAM m3l=5u
+
+.PARAM m4w=20u
+
+.PARAM m4l=20u
+
+.PARAM cinval=500f
+
+.PARAM rdetval=100MEG
+
+.PARAM rfbval=10MEG
+
+.PARAM cparval=100f
+
+.PARAM m2bval=4.500000
+.PARAM m3bval=2.500000
+.PARAM m4bval=3.750000

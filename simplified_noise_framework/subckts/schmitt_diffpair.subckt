@@ -1,0 +1,11 @@
+
+.SUBCKT schmitt_diffpair  vcca  gnda  vccd  gndd  in
+
+
+  Xstage1  vcca  gnda  in        diffpairjpl
+  Xstage2  vccd  gndd  Xstage1.n2  Xstage1.n1  diffpairnd
+  Vout     Xstage2.out  out  0
+
+
+.ENDS schmitt_diffpair
+

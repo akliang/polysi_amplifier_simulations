@@ -1,0 +1,30 @@
+
+.SUBCKT  amp_fcasc2_fc   vcc   gnd   in   m2b   m3b   m4b  m5b out n2 n2left
+
+M1   n1    n2    gnd   gnd   ntft    W=50u  L=10u
+M2   n4    m2b   gnd   gnd   ntft    W=10u  L=10u
+M3   n1    m3b   n4    vcc   ptft    W=20u  L=10u
+M4   vcc   m4b   n1    vcc   ptft    W=20u  L=10u
+.PARAM r5val=10MEG
+.PARAM r6val=200MEG
+
+R5   n4   n3  r5val
+R6   n3   n2left  r6val
+* placeholder for TFT count for variations (to match cutoff version)
+Mcutoff  gnd gnd gnd  gnd  ntft  W=6u  L=6u
+
+* feedback capacitor fc
+Cfc  n3  n2left  10f
+
+Vao  n3  out  0
+
+.PARAM VC1=0.1p
+.PARAM VC2=0.5p
+
+C1   n3    gnd   VC1
+C2   in    n2left    VC2
+
+
+.ENDS amp_fcasc2_fc
+
+

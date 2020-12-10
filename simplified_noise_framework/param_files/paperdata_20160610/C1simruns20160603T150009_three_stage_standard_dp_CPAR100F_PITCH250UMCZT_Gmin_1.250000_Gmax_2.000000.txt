@@ -1,0 +1,17 @@
+
+
+
+
+
+
+
+
+
+.PARAM rdetval=100MEG
+
+
+.PARAM cparval=100f
+
+.PARAM m2bval=1.900000
+.PARAM m3bval=0.250000
+.PARAM m4bval=4.000000

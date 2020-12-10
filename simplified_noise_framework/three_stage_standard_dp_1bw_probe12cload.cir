@@ -1,0 +1,74 @@
+
+*.PARAM m3bval=4.5
+*#HEADER (just a reminder, not actually used)
+
+*#NUMSTAGES 3
+
+.PARAM m2bval=3.9
+.PARAM m3bval=4.5
+.PARAM m4bval=1.75
+.PARAM rdetval=100MEG
+.PARAM cparval=100f
+
+
+*#PRINTNODEAC isweep
+Xdetin   detin   detinDC  0 probe_node   DCval=0
+Xvin     ampin   inDC     ampinL     probe_node  DCval=0
+*#PRINTNODEAC ampinL
+Xst1m2b  st1m2b  st1m2bDC 0 probe_node  DCval=m2bval
+Xst1m3b  st1m3b  st1m3bDC 0 probe_node  DCval=m3bval
+Xst1m4b  st1m4b  st1m4bDC 0 probe_node  DCval=m4bval
+Xst1m5b  st1m5b  st1m5bDC 0 probe_node  DCval=0
+Xst1m6b  st1m6b  st1m6bDC 0 probe_node  DCval=0
+
+Xst2m2b  st2m2b  st2m2bDC 0 probe_node  DCval=m2bval
+Xst2m3b  st2m3b  st2m3bDC 0 probe_node  DCval=m3bval
+Xst2m4b  st2m4b  st2m4bDC 0 probe_node  DCval=m4bval
+Xst2m5b  st2m5b  st2m5bDC 0 probe_node  DCval=0
+
+Xst3m2b  st3m2b  st3m2bDC 0 probe_node  DCval=m2bval
+Xst3m3b  st3m3b  st3m3bDC 0 probe_node  DCval=m3bval
+Xst3m4b  st3m4b  st3m4bDC 0 probe_node  DCval=m4bval
+Xst3m5b  st3m5b  st3m5bDC 0 probe_node  DCval=0
+Xst3m6b  st3m6b  st3m6bDC 0 probe_node  DCval=0
+
+Cdet  ampinL   detin  detval
+Cpar  ampinL   0      cparval
+Rdet  ampinL   0      rdetval
+*Rdet  ampinL   0      100MEG
+Xst1m1b  Xfcasc1n2  st1m1bDC  Xfcasc1n2left  probe_node  DCval=0  *#TFTNOISEGATE Xfcasc1.n2
+Xst2m1b  Xfcasc2n2  st2m1bDC  Xfcasc2n2left  probe_node  DCval=0  *#TFTNOISEGATE Xfcasc2.n2
+Xst3m1b  Xfcasc3n2  st3m1bDC  Xfcasc3n2left  probe_node  DCval=0  *#TFTNOISEGATE Xfcasc3.n2
+Xfcasc1  vcc  gnd  ampin          st1m2b  st1m3b  st1m4b  st1m5b  st1m6b   Xfcasc1out  Xfcasc1n2  Xfcasc1n2left  amp_fcasc2_2t
+Xfcasc2  vcc  gnd  Xfcasc1out     st2m2b  st2m3b  st2m4b  st2m5b           Xfcasc2out  Xfcasc2n2  Xfcasc2n2left  amp_fcasc2_fc
+Xfcasc3  vcc  gnd  Xfcasc2out     st3m2b  st3m3b  st3m4b  st3m5b  st3m6b   Xfcasc3out  Xfcasc3n2  Xfcasc3n2left  amp_fcasc2_2t
+*#PRINTNODEGM Xfcasc1.M1
+*#PRINTNODEGM Xfcasc1.M2
+*#PRINTNODEGM Xfcasc1.M3
+*#PRINTNODEGM Xfcasc1.M4
+*#PRINTNODEGM Xfcasc2.M1
+*#PRINTNODEGM Xfcasc2.M2
+*#PRINTNODEGM Xfcasc2.M3
+*#PRINTNODEGM Xfcasc2.M4
+*#PRINTNODEGM Xfcasc3.M1
+*#PRINTNODEGM Xfcasc3.M2
+*#PRINTNODEGM Xfcasc3.M3
+*#PRINTNODEGM Xfcasc3.M4
+
+
+* Diff pair input load
+*Cdp   Xfcasc3out  out  500f
+*Moff  out   gnd    mid  ntft   W=6u  L=6u
+*Roff  out    mid   100G
+*Rdiv1 vcc          mid  6MEG
+*Rdiv2 mid          gnd  2MEG
+*Mdiff gnd   out    gnd  ntft  W=6u  L=6u
+*Vout  out  Xfcasc3out  0
+Vout  Xfcasc3out  out  0
+*Moff  gnd  out  gnd  ntft  W=10u  L=10u
+
+Rprobe12c  out  gnd  1MEG
+Cprobe12c  out  gnd  0.1p
+
+
+

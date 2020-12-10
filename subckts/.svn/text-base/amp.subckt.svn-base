@@ -1,0 +1,37 @@
+
+.SUBCKT amp vcc  gnd  in  m2b  m3b  m4b  m5b
+
+*.INCLUDE amp_fcasc2_rc.subckt
+*.INCLUDE amp_fcasc2_fc.subckt
+*.INCLUDE amp_fcasc2_cutoff.subckt
+*.INCLUDE amp_fcasc2_2t.subckt
+
+
+* NEEDS UPDATING FOR ao AND out
+* three-stage RC filtering
+* Xfcasc1  vcc  gnd  in          m2b  m3b  m4b  m5b  amp_fcasc2_rc
+* Xfcasc1  vcc  gnd  in          m2b  m3b  m4b  m5b  amp_fcasc2_fc
+* Xfcasc1  vcc  gnd  in          m2b  m3b  m4b  m5b  amp_fcasc2_cutoff
+* Xfcasc1  vcc  gnd  in          m2b  m3b  m4b  m5b  amp_fcasc2
+* Xfcasc2  vcc  gnd  Xfcasc1.ao  m2b  m3b  m4b  m5b  amp_fcasc2_rc
+* Xfcasc2  vcc  gnd  Xfcasc1.ao  m2b  m3b  m4b  m5b  amp_fcasc2_fc
+* Xfcasc2  vcc  gnd  Xfcasc1.ao  m2b  m3b  m4b  m5b  amp_fcasc2_cutoff
+* Xfcasc2  vcc  gnd  Xfcasc1.ao  m2b  m3b  m4b  m5b  amp_fcasc2
+* Xfcasc3  vcc  gnd  Xfcasc2.ao  m2b  m3b  m4b  m5b  amp_fcasc2_rc
+* Xfcasc3  vcc  gnd  Xfcasc2.ao  m2b  m3b  m4b  m5b  amp_fcasc2_fc
+* Xfcasc3  vcc  gnd  Xfcasc2.ao  m2b  m3b  m4b  m5b  amp_fcasc2_cutoff
+* Xfcasc3  vcc  gnd  Xfcasc2.ao  m2b  m3b  m4b  m5b  amp_fcasc2
+*Vout1   Xfcasc3.ao  out     0
+*Voutst1 Xfcasc1.ao  outst1  0
+*Voutst2 Xfcasc2.ao  outst2  0
+
+
+
+** ONE STAGE AMP **
+* Xfcasc1  vcc  gnd  in          m2b  m3b  m4b  m5b  amp_fcasc2_rc
+ Xfcasc1  vcc  gnd  in          m2b  m3b  m4b  m5b  amp_fcasc2_fc
+* Xfcasc1  vcc  gnd  in          m2b  m3b  m4b  m5b  amp_fcasc2_cutoff
+* Xfcasc1  vcc  gnd  in          m2b  m3b  m4b  m5b  amp_fcasc2_2t
+Vout1   Xfcasc1.out  out         0
+
+.ENDS amp
